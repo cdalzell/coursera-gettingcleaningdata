@@ -44,6 +44,8 @@ names(yData) <- "Activity" # give the column a better title than "V1"
 yData$Activity <- activityData[yData$Activity, 2]  # sub in descriptive activity names
 
 # 4. Appropriately labels the data set with descriptive activity names.
+# Was not sure how steps 3 and 4 are different, apparently they're not:
+# https://class.coursera.org/getdata-002/forum/thread?thread_id=28#post-461
 
 # 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 # Note: It is my understanding that this "second" data set is second to the original download that this data was
