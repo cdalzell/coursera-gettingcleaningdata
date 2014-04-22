@@ -33,15 +33,15 @@ xData <- xData[, measurementCols] # axe the data we don't need
 
 # give the x data better names
 names(xData) <- featureData[measurementCols, 2]
-names(xData) <- gsub("\\(\\)", "", names(xData)) # get rid of the parens
+names(xData) <- gsub("\\(\\)", "", tolower(names(xData))) # get rid of the parens
 
 # 3. Uses descriptive activity names to name the activities in the data set
 activityData <- read.table("activity_labels.txt")
 
 activityData$V2 <- gsub("_", " ", activityData$V2)
 
-names(yData) <- "Activity" # give the column a better title than "V1"
-yData$Activity <- activityData[yData$Activity, 2]  # sub in descriptive activity names
+names(yData) <- "activity" # give the column a better title than "V1"
+yData$activity <- activityData[yData$activity, 2]  # sub in descriptive activity names
 
 # 4. Appropriately labels the data set with descriptive activity names.
 # Was not sure how steps 3 and 4 are different, apparently they're not:
@@ -56,7 +56,7 @@ yData$Activity <- activityData[yData$Activity, 2]  # sub in descriptive activity
 #
 # So.. No need to write out both datasets, just the final one with the averages..
 
-names(subjectData) <- "Subject"
+names(subjectData) <- "subject"
 cleanData <- cbind(subjectData, yData, xData)
 
 # And even if I am wrong about not needing to write both data sets, uncommenting the next line is all that
@@ -65,10 +65,10 @@ cleanData <- cbind(subjectData, yData, xData)
 
 library(reshape2) # http://had.co.nz/reshape/
 
-keyCols <- c("Subject", "Activity") # "lookup key" for each activity and each subject
+keyCols <- c("subject", "activity") # "lookup key" for each activity and each subject
 measurementNames <- setdiff(colnames(cleanData), keyCols)
 
 meltedData <- melt(cleanData, id = keyCols, measure.vars = measurementNames)
-avgData <- dcast(meltedData, Subject + Activity ~ variable, mean)
+avgData <- dcast(meltedData, subject + activity ~ variable, mean)
 
 write.csv(avgData, "tidy-data-set-avg.csv", row.names=FALSE)
