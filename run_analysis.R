@@ -40,4 +40,11 @@ names(xData) <- gsub("\\(\\)", "", names(xData)) # get rid of the parens
 # 4. Appropriately labels the data set with descriptive activity names.
 
 # 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+# Note: It is my understanding that this "second" data set is second to the original download that this data was
+# sourced from.
+#
+# https://class.coursera.org/getdata-002/forum/thread?thread_id=105
+# https://class.coursera.org/getdata-002/forum/thread?thread_id=146
+#
+# So.. No need to write out both datasets, just the final one with the averages..
 
