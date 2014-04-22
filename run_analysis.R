@@ -20,7 +20,20 @@ subjectTest <- read.table("test/subject_test.txt")
 subjectTrain <- read.table("train/subject_train.txt")
 subjectData <- rbind(subjectTest, subjectTrain)
 
+## TODO: get rid of the seperate test/train data to save memory?
+
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+featureData <- read.table("features.txt")
+#View(featureData)
+
+# find the columns that have mean or standard dev measuments
+measurementCols <- grep("*mean\\(\\)|*std\\(\\)", featureData$V2)
+
+xData <- xData[, measurementCols] # axe the data we don't need
+
+# give the x data better names
+names(xData) <- featureData[measurementCols, 2]
+names(xData) <- gsub("\\(\\)", "", names(xData)) # get rid of the parens
 
 # 3. Uses descriptive activity names to name the activities in the data set
 
