@@ -56,3 +56,19 @@ yData$Activity <- activityData[yData$Activity, 2]  # sub in descriptive activity
 #
 # So.. No need to write out both datasets, just the final one with the averages..
 
+names(subjectData) <- "Subject"
+cleanData <- cbind(subjectData, yData, xData)
+
+# And even if I am wrong about not needing to write both data sets, uncommenting the next line is all that
+# would need to be done:
+#write.csv(cleanData, "tidy-data-set.csv", row.names=FALSE)
+
+library(reshape2) # http://had.co.nz/reshape/
+
+keyCols <- c("Subject", "Activity") # "lookup key" for each activity and each subject
+measurementNames <- setdiff(colnames(cleanData), keyCols)
+
+meltedData <- melt(cleanData, id = keyCols, measure.vars = measurementNames)
+avgData <- dcast(meltedData, Subject + Activity ~ variable, mean)
+
+write.csv(avgData, "tidy-data-set-avg.csv", row.names=FALSE)
