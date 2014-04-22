@@ -6,3 +6,4 @@ features_info.txt
 test/
 train/
 tidy-data-set.csv
+tidy-data-set-avg.csv
