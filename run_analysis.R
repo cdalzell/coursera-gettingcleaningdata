@@ -36,6 +36,12 @@ names(xData) <- featureData[measurementCols, 2]
 names(xData) <- gsub("\\(\\)", "", names(xData)) # get rid of the parens
 
 # 3. Uses descriptive activity names to name the activities in the data set
+activityData <- read.table("activity_labels.txt")
+
+activityData$V2 <- gsub("_", " ", activityData$V2)
+
+names(yData) <- "Activity" # give the column a better title than "V1"
+yData$Activity <- activityData[yData$Activity, 2]  # sub in descriptive activity names
 
 # 4. Appropriately labels the data set with descriptive activity names.
 
